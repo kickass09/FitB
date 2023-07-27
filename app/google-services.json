@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "191909204399",
+    "project_id": "fitb-c5db6",
+    "storage_bucket": "fitb-c5db6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191909204399:android:dfe0a673a4fc18d7ec5f5a",
+        "android_client_info": {
+          "package_name": "com.example.fitb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191909204399-0hfn3173oime5affufebj7pb6kimon8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDal6aUXiSL3YousMk7kpUu7xfbutrADR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191909204399-0hfn3173oime5affufebj7pb6kimon8i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
