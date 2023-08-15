@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     private ExerciseAdapter exerciseAdapter;
     private List<Exercise> exerciseList;
 
+    private Spinner spinnerSubFilter;
+    private ArrayAdapter<String> subFilterAdapter;
+    private List<String> subFilterOptions;
+
     private Spinner spinnerFilter;
     private String selectedFilter;
 
@@ -53,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        spinnerSubFilter = findViewById(R.id.spinnerSubFilter);
+        subFilterOptions = new ArrayList<>();
+        subFilterAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, subFilterOptions);
+        subFilterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSubFilter.setAdapter(subFilterAdapter);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -81,30 +91,31 @@ public class MainActivity extends AppCompatActivity {
                 // Get the selected filter option
                 selectedFilter = adapterView.getItemAtPosition(position).toString();
 
-                // Filter the exercise list based on the selected filter
-                List<Exercise> filteredList = null;
-                switch (selectedFilter) {
-                    case "Body Part":
-                        Toast.makeText(MainActivity.this, "Body Part", Toast.LENGTH_SHORT).show();
-                        filteredList = filterByBodyPart();
-                        break;
-                    case "Target":
-                        Toast.makeText(MainActivity.this, "Target", Toast.LENGTH_SHORT).show();
-                        filteredList = filterByTarget();
-                        break;
-                    case "Equipment":
-                        Toast.makeText(MainActivity.this, "Equipment", Toast.LENGTH_SHORT).show();
-                        filteredList = filterByEquipment();
-                        break;
-                    default:
-                        // "All Exercises" or unknown filter, show all exercises
-                        filteredList = exerciseList;
-                        break;
-                }
-
-                // Update the RecyclerView with the filtered list
-                exerciseAdapter.setExerciseList(filteredList);
-                exerciseAdapter.notifyDataSetChanged();
+                updateSubFilterOptions(selectedFilter);
+//                // Filter the exercise list based on the selected filter
+//                List<Exercise> filteredList = null;
+//                switch (selectedFilter) {
+//                    case "Body Part":
+//                        Toast.makeText(MainActivity.this, "Body Part", Toast.LENGTH_SHORT).show();
+//                        filteredList = filterByBodyPart();
+//                        break;
+//                    case "Target":
+//                        Toast.makeText(MainActivity.this, "Target", Toast.LENGTH_SHORT).show();
+//                        filteredList = filterByTarget();
+//                        break;
+//                    case "Equipment":
+//                        Toast.makeText(MainActivity.this, "Equipment", Toast.LENGTH_SHORT).show();
+//                        filteredList = filterByEquipment();
+//                        break;
+//                    default:
+//                        // "All Exercises" or unknown filter, show all exercises
+//                        filteredList = exerciseList;
+//                        break;
+//                }
+//
+//                // Update the RecyclerView with the filtered list
+//                exerciseAdapter.setExerciseList(filteredList);
+//                exerciseAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -114,15 +125,128 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Other existing code ...
+
+        spinnerSubFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                String selectedSubFilter = adapterView.getItemAtPosition(position).toString();
+                String selectedFilter = spinnerFilter.getSelectedItem().toString();
+                // Apply sub-filtering logic and update the RecyclerView
+                List<Exercise> filteredList = applySubFilter(selectedFilter, selectedSubFilter);
+                exerciseAdapter.setExerciseList(filteredList);
+                exerciseAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // Do nothing
+            }
+        });
+    }
+
+
+    // Method to update sub-filter options based on the selected primary filter
+    private void updateSubFilterOptions(String primaryFilter) {
+        subFilterOptions.clear();
+
+        if (primaryFilter.equals("Body Part")) {
+            // Add body part options to sub-filter
+            subFilterOptions.add("lower arms");
+
+            subFilterOptions.add("lower legs");
+            subFilterOptions.add("neck");
+            subFilterOptions.add("shoulders");
+            subFilterOptions.add("upper arms");
+            subFilterOptions.add("upper legs");
+
+            subFilterOptions.add("waist");
+            subFilterOptions.add("back");
+            subFilterOptions.add("cardio");
+            subFilterOptions.add("chest");
+            // Add more body part options as needed
+        } else if (primaryFilter.equals("Target")) {
+            // Add target options to sub-filter
+            subFilterOptions.add("abductors");
+            subFilterOptions.add("adductors");
+            subFilterOptions.add("biceps");
+            subFilterOptions.add("calves");
+            subFilterOptions.add("cardiovascular system");
+            subFilterOptions.add("delts");
+            subFilterOptions.add("forearms");
+            subFilterOptions.add("glutes");
+            subFilterOptions.add("hamstrings");
+            subFilterOptions.add("lats");
+            subFilterOptions.add("levator scapulae");
+            subFilterOptions.add("pectorals");
+            subFilterOptions.add("quads");
+            subFilterOptions.add("serratus anterior");
+            subFilterOptions.add("spine");
+            subFilterOptions.add("traps");
+
+
+            subFilterOptions.add("abs");
+            subFilterOptions.add("triceps");
+            subFilterOptions.add("upper back");
+            // Add more target options as needed
+        } else if (primaryFilter.equals("Equipment")) {
+            // Add equipment options to sub-filter
+            subFilterOptions.add("assisted");
+            subFilterOptions.add("band");
+            subFilterOptions.add("body weight");
+            subFilterOptions.add("bosu ball");
+            subFilterOptions.add("cable");
+            subFilterOptions.add("dumbbell");
+            subFilterOptions.add("elliptical machine");
+            subFilterOptions.add("ez barbell");
+            subFilterOptions.add("hammer");
+            subFilterOptions.add("kettlebell");
+            subFilterOptions.add("leverage machine");
+            subFilterOptions.add("medicine ball");
+            subFilterOptions.add("olympic barbell");
+            subFilterOptions.add("resistance band");
+            subFilterOptions.add("roller");
+            subFilterOptions.add("skierg machine");
+            subFilterOptions.add("sled machine");
+            subFilterOptions.add("smith machine");
+            subFilterOptions.add("stability ball");
+            subFilterOptions.add("stationary bike");
+            subFilterOptions.add("stepmill machine");
+
+
+
+
+            subFilterOptions.add("barbell");
+            subFilterOptions.add("rope");
+            subFilterOptions.add("tire");
+            // Add more equipment options as needed
+        }
+
+        subFilterAdapter.notifyDataSetChanged();
+    }
+
+    // Method to apply sub-filtering logic and return the filtered list
+    private List<Exercise> applySubFilter(String primaryFilter, String subFilter) {
+        List<Exercise> filteredList = new ArrayList<>();
+
+        // Apply filtering logic based on the selected primary filter and sub-filter
+        if (primaryFilter.equals("Body Part")) {
+            filteredList = filterByBodyPart(subFilter);
+        } else if (primaryFilter.equals("Target")) {
+            filteredList = filterByTarget(subFilter);
+        } else if (primaryFilter.equals("Equipment")) {
+            filteredList = filterByEquipment(subFilter);
+        }
+        updateSubFilterOptions(selectedFilter);
+        return filteredList;
     }
 
     // Helper methods to filter exerciseList based on selected criteria
-    private List<Exercise> filterByBodyPart() {
+    private List<Exercise> filterByBodyPart(String subFilter) {
         List<Exercise> filteredList = new ArrayList<>();
-        String selectedBodyPart = "waist"; // Replace this with the actual selected body part
+        //String selectedBodyPart = "waist"; // Replace this with the actual selected body part
 
         for (Exercise exercise : exerciseList) {
-            if (exercise.getBodyPart().equalsIgnoreCase(selectedBodyPart)) {
+            if (exercise.getBodyPart().equalsIgnoreCase(subFilter)) {
                 filteredList.add(exercise);
             }
         }
@@ -130,12 +254,12 @@ public class MainActivity extends AppCompatActivity {
         return filteredList;
     }
 
-    private List<Exercise> filterByTarget() {
+    private List<Exercise> filterByTarget(String subFilter) {
         List<Exercise> filteredList = new ArrayList<>();
-        String selectedTarget = "abs"; // Replace this with the actual selected target
+        //String selectedTarget = "abs"; // Replace this with the actual selected target
 
         for (Exercise exercise : exerciseList) {
-            if (exercise.getTarget().equalsIgnoreCase(selectedTarget)) {
+            if (exercise.getTarget().equalsIgnoreCase(subFilter)) {
                 filteredList.add(exercise);
             }
         }
@@ -143,12 +267,12 @@ public class MainActivity extends AppCompatActivity {
         return filteredList;
     }
 
-    private List<Exercise> filterByEquipment() {
+    private List<Exercise> filterByEquipment(String subFilter) {
         List<Exercise> filteredList = new ArrayList<>();
-        String selectedEquipment = "body weight"; // Replace this with the actual selected equipment
+        //String selectedEquipment = "body weight"; // Replace this with the actual selected equipment
 
         for (Exercise exercise : exerciseList) {
-            if (exercise.getEquipment().equalsIgnoreCase(selectedEquipment)) {
+            if (exercise.getEquipment().equalsIgnoreCase(subFilter)) {
                 filteredList.add(exercise);
             }
         }
