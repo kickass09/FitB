@@ -12,10 +12,10 @@ public class YourNotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // Build and send the notification
         int notificationId = 1;
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "your_channel_id")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "FitB")
                 .setSmallIcon(R.drawable.logo)
-                .setContentTitle("Reminder!!")
-                .setContentText("Did you drink enough water for today?? ALWAYS STAY HYDRATED")
+                .setContentTitle("STAY HYDRATED")
+                .setContentText("Did you drink enough water today??")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);

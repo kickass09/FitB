@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = "your_channel_id"; // Replace with your desired channel ID
-            CharSequence channelName = "Reminders"; // Replace with your desired channel name
+            String channelId = "FitB";
+            CharSequence channelName = "Reminders";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
 
@@ -113,30 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedFilter = adapterView.getItemAtPosition(position).toString();
 
                 updateSubFilterOptions(selectedFilter);
-//                // Filter the exercise list based on the selected filter
-//                List<Exercise> filteredList = null;
-//                switch (selectedFilter) {
-//                    case "Body Part":
-//                        Toast.makeText(MainActivity.this, "Body Part", Toast.LENGTH_SHORT).show();
-//                        filteredList = filterByBodyPart();
-//                        break;
-//                    case "Target":
-//                        Toast.makeText(MainActivity.this, "Target", Toast.LENGTH_SHORT).show();
-//                        filteredList = filterByTarget();
-//                        break;
-//                    case "Equipment":
-//                        Toast.makeText(MainActivity.this, "Equipment", Toast.LENGTH_SHORT).show();
-//                        filteredList = filterByEquipment();
-//                        break;
-//                    default:
-//                        // "All Exercises" or unknown filter, show all exercises
-//                        filteredList = exerciseList;
-//                        break;
-//                }
-//
-//                // Update the RecyclerView with the filtered list
-//                exerciseAdapter.setExerciseList(filteredList);
-//                exerciseAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -145,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Other existing code ...
 
         spinnerSubFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -187,12 +163,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the time you want the notification to be triggered
         long triggerTimeMillis = System.currentTimeMillis() + 5000;
+        long intervalMillis = 1*1000;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTimeMillis, pendingIntent);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTimeMillis, intervalMillis, pendingIntent);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTimeMillis, pendingIntent);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTimeMillis, intervalMillis, pendingIntent);
         } else {
             alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeMillis, pendingIntent);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTimeMillis, intervalMillis, pendingIntent);
         }
     }
 
@@ -214,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
             subFilterOptions.add("back");
             subFilterOptions.add("cardio");
             subFilterOptions.add("chest");
-            // Add more body part options as needed
         } else if (primaryFilter.equals("Target")) {
             // Add target options to sub-filter
             subFilterOptions.add("abductors");
@@ -238,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             subFilterOptions.add("abs");
             subFilterOptions.add("triceps");
             subFilterOptions.add("upper back");
-            // Add more target options as needed
+
         } else if (primaryFilter.equals("Equipment")) {
             // Add equipment options to sub-filter
             subFilterOptions.add("assisted");
@@ -262,14 +241,10 @@ public class MainActivity extends AppCompatActivity {
             subFilterOptions.add("stability ball");
             subFilterOptions.add("stationary bike");
             subFilterOptions.add("stepmill machine");
-
-
-
-
             subFilterOptions.add("barbell");
             subFilterOptions.add("rope");
             subFilterOptions.add("tire");
-            // Add more equipment options as needed
+
         }
 
         subFilterAdapter.notifyDataSetChanged();
@@ -294,7 +269,6 @@ public class MainActivity extends AppCompatActivity {
     // Helper methods to filter exerciseList based on selected criteria
     private List<Exercise> filterByBodyPart(String subFilter) {
         List<Exercise> filteredList = new ArrayList<>();
-        //String selectedBodyPart = "waist"; // Replace this with the actual selected body part
 
         for (Exercise exercise : exerciseList) {
             if (exercise.getBodyPart().equalsIgnoreCase(subFilter)) {
@@ -307,7 +281,6 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Exercise> filterByTarget(String subFilter) {
         List<Exercise> filteredList = new ArrayList<>();
-        //String selectedTarget = "abs"; // Replace this with the actual selected target
 
         for (Exercise exercise : exerciseList) {
             if (exercise.getTarget().equalsIgnoreCase(subFilter)) {
@@ -320,7 +293,6 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Exercise> filterByEquipment(String subFilter) {
         List<Exercise> filteredList = new ArrayList<>();
-        //String selectedEquipment = "body weight"; // Replace this with the actual selected equipment
 
         for (Exercise exercise : exerciseList) {
             if (exercise.getEquipment().equalsIgnoreCase(subFilter)) {
@@ -375,8 +347,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 Exercise exercise = new Exercise(bodyPart,equipment,gifUrl,id,name,target);
                                 exerciseList.add(exercise);
-//                                Log.d("exerciseList0", String.valueOf(exerciseList));
-//                                Log.d("exerciseList1", String.valueOf(exercise));
                             }
 
                             runOnUiThread(new Runnable() {
@@ -384,9 +354,6 @@ public class MainActivity extends AppCompatActivity {
                                 public void run() {
                                     exerciseAdapter.notifyDataSetChanged();
 
-
-//                                    Intent intent=new Intent(getApplicationContext(),MainActivity2.class);
-//                                    startActivity(intent);
 
                                 }
                             });

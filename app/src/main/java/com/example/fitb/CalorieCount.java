@@ -28,7 +28,7 @@ public class CalorieCount extends AppCompatActivity {
     private Spinner spinnerExercise;
 
     private int totalVolume = 0;
-    private double caloriesPerMinute = 10.0; // Example value, replace with appropriate value
+    private double caloriesPerMinute = 10.0; // Example value
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,6 @@ public class CalorieCount extends AppCompatActivity {
 
         spinnerExercise = findViewById(R.id.spinnerExercise);
 
-        //editTextExercise = findViewById(R.id.editTextExercise);
         textViewSets=findViewById(R.id.textViewSet);
         textViewReps=findViewById(R.id.textViewReps);
         textViewWeight=findViewById(R.id.textViewWeight);
@@ -107,7 +106,7 @@ public class CalorieCount extends AppCompatActivity {
         int reps = 0;
         double weight = 0.0;
         int duration = 0;
-        //String exercise = editTextExercise.getText().toString();
+
         if (editTextSets.getVisibility() == View.VISIBLE) {
             String setsStr = editTextSets.getText().toString();
             if (!setsStr.isEmpty()) {
@@ -154,9 +153,7 @@ public class CalorieCount extends AppCompatActivity {
         double caloriesBurned = caloriesPerMinute * duration;
         textViewCaloriesBurned.setText("Calories Burned: " + caloriesBurned +" kcal");
 
-        // Additional calculations or tracking logic can be added here
 
-        //editTextExercise.setText("");
         editTextSets.setText("");
         editTextReps.setText("");
         editTextWeight.setText("");
@@ -164,7 +161,7 @@ public class CalorieCount extends AppCompatActivity {
     }
 
     private double calculateCaloriesPerMinute(String exercise, double weight) {
-        // Use exercise-specific coefficients or MET values for calorie calculations
+        // Used exercise-specific coefficients or MET values for calorie calculations
         if (exercise.equalsIgnoreCase("running")) {
             double metValue = 8.0; // Example MET value for running
             return metValue * weight;
@@ -209,8 +206,7 @@ public class CalorieCount extends AppCompatActivity {
             return metValue * weight;
         }
         else {
-            // Add additional exercise cases or implement a lookup table
-            return 0.0; // Default value if exercise not found
+            return 0.0;
         }
     }
 }

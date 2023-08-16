@@ -37,10 +37,10 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Create an Intent to launch the new activity
+                // Created an Intent to launch the new activity
                 Intent intent = new Intent(view.getContext(), ExerciseDetailsActivity.class);
 
-                // Pass the exercise details as extras in the Intent
+                // Passed the exercise details as extras in the Intent
                 intent.putExtra("bodyPart", exercise.getBodyPart());
                 intent.putExtra("equipment", exercise.getEquipment());
                 intent.putExtra("gifUrl", exercise.getGifUrl());
@@ -48,7 +48,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                 intent.putExtra("name", exercise.getName());
                 intent.putExtra("target", exercise.getTarget());
 
-                // Start the new activity
+                // Started the new activity
                 view.getContext().startActivity(intent);
             }
         });
