@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
         android:entries="@array/exercise_options"
         android:prompt="@string/select_exercise_prompt"/>
 
@@ -57,7 +58,7 @@
         android:id="@+id/textViewWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weight in KG: "
+        android:text="Weight in Kg:(Body weight) "
         android:textSize="18sp"
         android:textStyle="bold"/>
 

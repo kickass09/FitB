@@ -33,7 +33,7 @@ public class MyAccount extends AppCompatActivity {
             finish();
         }
         else{
-            textView.setText(user.getEmail());
+            textView.setText("Email: "+user.getEmail());
         }
 
         button.setOnClickListener(new View.OnClickListener() {

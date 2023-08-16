@@ -9,5 +9,11 @@
     <string name="logout">Logout</string>
     <string name="check_calorie">Check Calories</string>
     <string name="My_account">My Account</string>
+    <string name="about">About</string>
     <string name="select_exercise_prompt">select</string>
+    <string name="about_title">About FitB App</string>
+    <string name="about_description">
+        Welcome to the FitB Exercise App! This app helps it\'s users to check for exercises with a gif representing on how to perform it in action. Also the exercises can be filtered based on body parts, targets and equipments. This app also helps you track your workouts and calculate calories burned during exercises.
+        Stay healthy and fit with our comprehensive exercise tracking features.
+    </string>
 </resources>

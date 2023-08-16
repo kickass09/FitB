@@ -374,6 +374,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             Toast.makeText(this, "Check your Calorie count", Toast.LENGTH_SHORT).show();
         }
+        else if((item.getItemId()==R.id.menu_about)){
+            Intent intent=new Intent(getApplicationContext(),About.class);
+            startActivity(intent);
+            Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+        }
         else{
             return super.onOptionsItemSelected(item);
         }
