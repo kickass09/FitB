@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class CalorieCount extends AppCompatActivity {
 
 
-    private EditText editTextExercise;
+    //private EditText editTextExercise;
     private EditText editTextSets;
     private EditText editTextReps;
     private EditText editTextWeight;
@@ -19,6 +20,7 @@ public class CalorieCount extends AppCompatActivity {
     private TextView textViewVolume;
     private TextView textViewIntensity;
     private TextView textViewCaloriesBurned;
+    private Spinner spinnerExercise;
 
     private int totalVolume = 0;
     private double caloriesPerMinute = 10.0; // Example value, replace with appropriate value
@@ -28,7 +30,9 @@ public class CalorieCount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calorie_count);
 
-        editTextExercise = findViewById(R.id.editTextExercise);
+        spinnerExercise = findViewById(R.id.spinnerExercise);
+
+        //editTextExercise = findViewById(R.id.editTextExercise);
         editTextSets = findViewById(R.id.editTextSets);
         editTextReps = findViewById(R.id.editTextReps);
         editTextWeight = findViewById(R.id.editTextWeight);
@@ -36,6 +40,8 @@ public class CalorieCount extends AppCompatActivity {
         textViewVolume = findViewById(R.id.textViewVolume);
         textViewIntensity = findViewById(R.id.textViewIntensity);
         textViewCaloriesBurned = findViewById(R.id.textViewCaloriesBurned);
+
+
 
         Button buttonAddExercise = findViewById(R.id.buttonAddExercise);
         buttonAddExercise.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +53,9 @@ public class CalorieCount extends AppCompatActivity {
     }
 
     private void addExercise() {
-        String exercise = editTextExercise.getText().toString();
+
+        String exercise = spinnerExercise.getSelectedItem().toString();
+        //String exercise = editTextExercise.getText().toString();
         int sets = Integer.parseInt(editTextSets.getText().toString());
         int reps = Integer.parseInt(editTextReps.getText().toString());
         double weight = Double.parseDouble(editTextWeight.getText().toString());
@@ -57,17 +65,17 @@ public class CalorieCount extends AppCompatActivity {
         double intensity = (weight * volume) / 1000.0; // Example calculation for intensity
 
         totalVolume += volume;
-        textViewVolume.setText("Total Volume: " + totalVolume);
-        textViewIntensity.setText("Intensity: " + intensity);
+        textViewVolume.setText("Total Volume: " + totalVolume +"sets * reps");
+        textViewIntensity.setText("Intensity: " + intensity +"kg");
 
 
         double caloriesPerMinute = calculateCaloriesPerMinute(exercise, weight);
         double caloriesBurned = caloriesPerMinute * duration;
-        textViewCaloriesBurned.setText("Calories Burned: " + caloriesBurned);
+        textViewCaloriesBurned.setText("Calories Burned: " + caloriesBurned +"kcal");
 
         // Additional calculations or tracking logic can be added here
 
-        editTextExercise.setText("");
+        //editTextExercise.setText("");
         editTextSets.setText("");
         editTextReps.setText("");
         editTextWeight.setText("");

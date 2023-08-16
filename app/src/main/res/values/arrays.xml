@@ -6,4 +6,20 @@
         <item>Target</item>
         <item>Equipment</item>
     </string-array>
+
+    <string-array name="exercise_options">
+        <item>Running</item>
+        <item>Cycling (stationary bike)</item>
+        <item>Weightlifting (general)</item>
+        <item>High-intensity Interval Training (HIIT)</item>
+        <item>Elliptical training</item>
+        <item>Rowing</item>
+        <item>Circuit training</item>
+        <item>Swimming</item>
+        <item>Group fitness classes (e.g., Zumba, Aerobics)</item>
+        <item>Stair climbing</item>
+        <item>Treadmill running</item>
+
+        <!-- Add other exercise options -->
+    </string-array>
 </resources>

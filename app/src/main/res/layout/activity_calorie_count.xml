@@ -15,11 +15,13 @@
         android:textSize="18sp"
         android:textStyle="bold"/>
 
-    <EditText
-        android:id="@+id/editTextExercise"
+    <Spinner
+        android:id="@+id/spinnerExercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter exercise"/>
+        android:layout_marginTop="16dp"
+        android:entries="@array/exercise_options"
+        android:prompt="@string/select_exercise_prompt"/>
 
     <TextView
         android:id="@+id/textViewSet"
@@ -55,7 +57,7 @@
         android:id="@+id/textViewWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weight: "
+        android:text="Weight in KG: "
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -70,7 +72,7 @@
         android:id="@+id/textViewExerciseDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Duration: "
+        android:text="Duration in Min: "
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -79,13 +81,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:hint="Enter weight"/>
+        android:hint="Enter Duration"/>
 
     <Button
         android:id="@+id/buttonAddExercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Exercise"
+        android:text="Calculate Calorie"
         android:layout_marginTop="16dp"/>
 
     <TextView
