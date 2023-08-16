@@ -46,11 +46,14 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         mAuth=FirebaseAuth.getInstance();
 
+
         editTextEmail=findViewById(R.id.email);
         editTextPassword=findViewById(R.id.password);
         buttonReg=findViewById(R.id.btn_register);
         progressBar=findViewById(R.id.progressBar);
         textView=findViewById(R.id.loginNow);
+        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.INVISIBLE);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,20 +66,24 @@ public class Register extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.INVISIBLE);
+
                 String email,password;
                 email=editTextEmail.getText().toString();
                 password=editTextPassword.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(Register.this, "Enter Email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(TextUtils.isEmpty(password)){
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(Register.this, "Enter Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                progressBar.setVisibility(View.VISIBLE);
 
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

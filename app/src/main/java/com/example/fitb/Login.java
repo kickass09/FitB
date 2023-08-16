@@ -44,6 +44,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         mAuth=FirebaseAuth.getInstance();
 
         editTextEmail=findViewById(R.id.email);
@@ -52,6 +53,7 @@ public class Login extends AppCompatActivity {
         progressBar=findViewById(R.id.progressBar);
         textView=findViewById(R.id.registerNow);
         txtForgotPassword=findViewById(R.id.txtForgotPassword);
+        progressBar.setVisibility(View.GONE);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,20 +75,23 @@ public class Login extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.INVISIBLE);
+
                 String email,password;
                 email=editTextEmail.getText().toString();
                 password=editTextPassword.getText().toString();
 
                 if(TextUtils.isEmpty(email)){
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(Login.this, "Enter Email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(TextUtils.isEmpty(password)){
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(Login.this, "Enter Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                progressBar.setVisibility(View.VISIBLE);
 
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

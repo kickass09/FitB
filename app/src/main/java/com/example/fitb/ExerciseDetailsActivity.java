@@ -23,7 +23,7 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         String bodyPart = intent.getStringExtra("bodyPart");
         String equipment = intent.getStringExtra("equipment");
         String gifUrl = intent.getStringExtra("gifUrl");
-        String id = intent.getStringExtra("id");
+
         String name = intent.getStringExtra("name");
         String target = intent.getStringExtra("target");
 
@@ -32,7 +32,7 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         TextView textViewBodyPart = findViewById(R.id.textViewBodyPart);
         TextView textViewTarget = findViewById(R.id.textViewTarget);
         TextView textViewEquipment = findViewById(R.id.textViewEquipment);
-        TextView textViewId = findViewById(R.id.textViewId);
+
         ImageView imageViewGif = findViewById(R.id.imageViewGif);
 
         // Set the exercise details to the views
@@ -40,7 +40,7 @@ public class ExerciseDetailsActivity extends AppCompatActivity {
         textViewBodyPart.setText("Body Part: " + bodyPart);
         textViewTarget.setText("Target: " + target);
         textViewEquipment.setText("Equipment: " + equipment);
-        textViewId.setText("ID: " + id);
+
 
         // Load the GIF image using a library like Glide or Picasso
         Glide.with(this).load(gifUrl).diskCacheStrategy(DiskCacheStrategy.ALL).transition(DrawableTransitionOptions.withCrossFade()).into(imageViewGif);
