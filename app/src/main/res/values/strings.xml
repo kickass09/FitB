@@ -16,4 +16,12 @@
         Welcome to the FitB Exercise App! This app helps it\'s users to check for exercises with a gif representing on how to perform it in action. Also the exercises can be filtered based on body parts, targets and equipments. This app also helps you track your workouts and calculate calories burned during exercises.
         Stay healthy and fit with our comprehensive exercise tracking features.
     </string>
+    <string name="title_activity_bottom_navi">BottomNaviActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="Exercise">Exercise</string>
+    <string name="Chats">Chats</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
