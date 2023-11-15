@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".UserProfileActivity">
+
+    <!-- User's Name -->
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="18sp" />
+
+    <!-- User's Gender -->
+    <TextView
+        android:id="@+id/textViewGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:textSize="18sp" />
+
+    <!-- User's Goal -->
+    <TextView
+        android:id="@+id/textViewGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Exercise Goal"
+        android:textSize="18sp" />
+
+    <!-- User's Gym Locations -->
+    <TextView
+        android:id="@+id/textViewGymLocations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gym Locations"
+        android:textSize="18sp" />
+    <Button
+        android:id="@+id/sendRequestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Request" />
+</LinearLayout>

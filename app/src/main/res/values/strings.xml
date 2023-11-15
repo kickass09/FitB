@@ -24,4 +24,11 @@
     <string name="Chats">Chats</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="friendRequests">Friend Requests</string>
+    <string name="findFriends">Find Friends</string>
+    <string name="EditProfile">Update Profile</string>
+    <string-array name="goal_options">
+        <item>Gain Weight/Muscle</item>
+        <item>Lose Weight/Fat</item>
+    </string-array>
 </resources>

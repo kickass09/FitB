@@ -18,4 +18,23 @@
         app:showAsAction="never">
 
     </item>
+
+
+    <item android:id="@+id/menu_friendRequests"
+        android:title="@string/friendRequests"
+        app:showAsAction="never">
+
+    </item>
+
+
+    <item android:id="@+id/menu_findFriends"
+        android:title="@string/findFriends"
+        app:showAsAction="never">
+
+    </item>
+    <item android:id="@+id/menu_editProile"
+        android:title="@string/EditProfile"
+        app:showAsAction="never">
+
+    </item>
 </menu>

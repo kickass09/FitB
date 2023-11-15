@@ -53,7 +53,8 @@ public class HomeFragment extends Fragment {
 
     // ExerciseDB API constants
     private static final String API_URL = "https://exercisedb.p.rapidapi.com/exercises";
-    private static final String API_KEY = "29fa35a3famsh33afaf21dacf203p1d6c6bjsn353f5cd31aa7";
+//    private static final String API_KEY = "29fa35a3famsh33afaf21dacf203p1d6c6bjsn353f5cd31aa7";
+private static final String API_KEY = "29fa35a3famsh33afaf21dacf203p1d6c6bjsn353f5cd31aa7";
     private static final String API_HOST = "exercisedb.p.rapidapi.com";
 
     // TODO: Rename parameter arguments, choose names that match
