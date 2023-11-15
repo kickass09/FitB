@@ -34,6 +34,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_request_item, parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -64,11 +65,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             }
         });
 
-        // Check if friendRequests list is empty
-        if (friendRequests.isEmpty()) {
-            // Show a "No Friend Requests" message using a toast
-            Toast.makeText(activity, "No Friend Requests", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     private void updateRequestStatus(String requestId, String newStatus) {
