@@ -49,11 +49,24 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         Button buttonAccept = holder.buttonAccept;
         Button buttonReject = holder.buttonReject;
 
+        // Set default state for buttons
+        buttonAccept.setEnabled(true);
+        buttonReject.setEnabled(true);
+
+        // Set default text for buttons
+        buttonAccept.setText("Accept");
+        buttonReject.setText("Reject");
+
         buttonAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Handle the Accept button click
                 updateRequestStatus(friendRequest.getRequestId(), "accepted");
+                // Disable the buttons after accepting
+                buttonAccept.setEnabled(false);
+                buttonReject.setEnabled(true);
+                // Change text to indicate accepted
+                buttonAccept.setText("Accepted");
             }
         });
 
@@ -62,8 +75,31 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             public void onClick(View view) {
                 // Handle the Reject button click
                 updateRequestStatus(friendRequest.getRequestId(), "rejected");
+                // Disable the buttons after rejecting
+                buttonAccept.setVisibility(View.INVISIBLE);
+                buttonReject.setEnabled(false);
+                // Change text to indicate rejected
+                buttonReject.setText("Rejected");
             }
         });
+
+        // Update UI based on the request status
+        String status = friendRequest.getStatus();
+        if ("accepted".equals(status)) {
+            // If the status is accepted, disable both buttons and display "Accepted"
+            buttonAccept.setEnabled(false);
+            buttonReject.setEnabled(true);
+            buttonAccept.setText("Accepted");
+            buttonReject.setText("Reject");
+        } else if ("rejected".equals(status)) {
+            // If the status is rejected, disable both buttons and display "Rejected"
+            buttonAccept.setVisibility(View.INVISIBLE);
+            buttonReject.setEnabled(false);
+            //buttonAccept.setText("Rejected");
+            buttonReject.setText("Rejected");
+        } else {
+            // If the status is pending, buttons are already set to default state
+        }
 
 
     }

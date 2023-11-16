@@ -115,7 +115,7 @@ public class ContactsFragment extends Fragment {
                         String requestId = requestSnapshot.getKey();
 
                         // Process the request
-                        if ("pending".equals(status)) {
+
                             // This request is pending
                             // Notify the adapter that the data has changed
                             // Update your UI to display the request, and allow the user to accept or reject it
@@ -145,7 +145,7 @@ public class ContactsFragment extends Fragment {
                                     // Handle errors
                                 }
                             });
-                        }
+
                     }
 
                     // Check if friendRequests list is empty and show a "No Friend Requests" toast

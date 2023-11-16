@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -9,25 +11,44 @@
         android:id="@+id/textViewFriendName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Friend's Name" />
+        android:text="Friend's Name"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAccept"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewFriendGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Friend's Goal" />
+        android:text="Friend's Goal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAccept"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFriendName" />
 
     <Button
         android:id="@+id/buttonAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accept" />
+        android:layout_marginStart="212dp"
+        android:text="Accept"
+
+        android:textColor="#0DDD15"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonReject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reject" />
+        android:text="Reject"
+        android:textColor="#DD1C0E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonAccept"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
