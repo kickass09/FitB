@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_myaccount"
-        android:title="@string/My_account"
-        app:showAsAction="never">
 
-    </item>
 
     <item android:id="@+id/menu_calorieCount"
         android:title="@string/check_calorie"
@@ -13,16 +9,13 @@
 
     </item>
 
-    <item android:id="@+id/menu_about"
-        android:title="@string/about"
-        app:showAsAction="never">
-
-    </item>
 
 
-    <item android:id="@+id/menu_friendRequests"
-        android:title="@string/friendRequests"
-        app:showAsAction="never">
+
+    <item android:id="@+id/menu_logout"
+        android:title="@string/logout"
+        android:icon="@drawable/baseline_logout_24"
+        app:showAsAction="always">
 
     </item>
 
@@ -32,9 +25,16 @@
         app:showAsAction="never">
 
     </item>
+    <item android:id="@+id/menu_about"
+        android:title="@string/about"
+        app:showAsAction="never">
+
+    </item>
+
     <item android:id="@+id/menu_editProile"
         android:title="@string/EditProfile"
-        app:showAsAction="never">
+        android:icon="@drawable/baseline_account_circle_24"
+        app:showAsAction="always">
 
     </item>
 </menu>

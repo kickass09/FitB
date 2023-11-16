@@ -4,10 +4,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.List;
 
@@ -31,6 +36,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         Exercise exercise = exerciseList.get(position);
 
 
+        Glide.with(holder.itemView).load(exercise.getGifUrl()).diskCacheStrategy(DiskCacheStrategy.ALL).transition(DrawableTransitionOptions.withCrossFade()).into(holder.imgViewGif);
         holder.nameTextView.setText(exercise.getName());
         holder.descriptionTextView.setText(exercise.getBodyPart());
 
@@ -66,10 +72,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         public TextView nameTextView;
         public TextView descriptionTextView;
 
+        public ImageView imgViewGif;
+
         public ExerciseViewHolder(View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            imgViewGif=itemView.findViewById(R.id.imgViewGif);
         }
     }
 

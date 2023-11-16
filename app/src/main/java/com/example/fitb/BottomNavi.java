@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.fitb.databinding.ActivityBottomNaviBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class BottomNavi extends AppCompatActivity {
 
@@ -54,12 +55,7 @@ public class BottomNavi extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if((item.getItemId()==R.id.menu_myaccount)){
-            Intent intent=new Intent(getApplicationContext(),MyAccount.class);
-            startActivity(intent);
-            Toast.makeText(this, "Your Acoount", Toast.LENGTH_SHORT).show();
-        }
-        else if((item.getItemId()==R.id.menu_calorieCount)){
+        if((item.getItemId()==R.id.menu_calorieCount)){
             Intent intent=new Intent(getApplicationContext(),CalorieCount.class);
             startActivity(intent);
             Toast.makeText(this, "Check your Calorie count", Toast.LENGTH_SHORT).show();
@@ -72,9 +68,11 @@ public class BottomNavi extends AppCompatActivity {
             Intent intent=new Intent(getApplicationContext(),GymPartnersActivity.class);
             startActivity(intent);
             //Toast.makeText(this, "find Friends", Toast.LENGTH_SHORT).show();
-        }else if((item.getItemId()==R.id.menu_friendRequests)){
-            Intent intent=new Intent(getApplicationContext(),FriendRequestActivity.class);
+        }else if((item.getItemId()==R.id.menu_logout)){
+            FirebaseAuth.getInstance().signOut();
+            Intent intent=new Intent(getApplicationContext(),Login.class);
             startActivity(intent);
+            finish();
             //Toast.makeText(this, "Find Requests", Toast.LENGTH_SHORT).show();
         }else if((item.getItemId()==R.id.menu_editProile)){
         Intent intent=new Intent(getApplicationContext(),Profile.class);

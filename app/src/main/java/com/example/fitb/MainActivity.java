@@ -382,12 +382,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if((item.getItemId()==R.id.menu_myaccount)){
-            Intent intent=new Intent(getApplicationContext(),MyAccount.class);
-            startActivity(intent);
-            Toast.makeText(this, "Your Acoount", Toast.LENGTH_SHORT).show();
-        }
-        else if((item.getItemId()==R.id.menu_calorieCount)){
+
+        if((item.getItemId()==R.id.menu_calorieCount)){
             Intent intent=new Intent(getApplicationContext(),CalorieCount.class);
             startActivity(intent);
             Toast.makeText(this, "Check your Calorie count", Toast.LENGTH_SHORT).show();
