@@ -1,11 +1,13 @@
 package com.example.fitb;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +59,8 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         buttonAccept.setText("Accept");
         buttonReject.setText("Reject");
 
+        LinearLayout leftLinearLayout = holder.leftLinearLayout;
+
         buttonAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +87,25 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             }
         });
 
+        // Set an OnClickListener on leftLinearLayout
+        leftLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Handle the click on leftLinearLayout
+
+                if (position != RecyclerView.NO_POSITION) {
+                    FriendRequest clickedRequest = friendRequests.get(position);
+
+                    // Pass the data to UserRequestProfilesActivity
+                    Intent intent = new Intent(view.getContext(), UserRequestProfilesActivity.class);
+                    intent.putExtra("friendRequestId", clickedRequest.getRequestId());
+                    intent.putExtra("senderId", clickedRequest.getSenderId());
+                    // Add more data as needed
+                    view.getContext().startActivity(intent);
+                }
+            }
+        });
+
         // Update UI based on the request status
         String status = friendRequest.getStatus();
         if ("accepted".equals(status)) {
@@ -106,7 +129,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
 
     private void updateRequestStatus(String requestId, String newStatus) {
         Log.d("requestId",requestId);
-        if (requestId == null) {
+        if (requestId == null || requestId.equals("")) {
             // Handle the case where requestId is null
             // You can log an error message or take appropriate action
 
@@ -132,12 +155,18 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
         TextView textViewFriendGoal;
         Button buttonAccept,buttonReject;
 
+        LinearLayout leftLinearLayout;
+
         public ViewHolder(View itemView) {
             super(itemView);
             textViewFriendName = itemView.findViewById(R.id.textViewFriendName);
             textViewFriendGoal = itemView.findViewById(R.id.textViewFriendGoal);
             buttonAccept=itemView.findViewById(R.id.buttonAccept);
             buttonReject=itemView.findViewById(R.id.buttonReject);
+            leftLinearLayout = itemView.findViewById(R.id.leftLinearLayout);
+
+            // Set an OnClickListener on leftLinearLayout
+
         }
     }
 }

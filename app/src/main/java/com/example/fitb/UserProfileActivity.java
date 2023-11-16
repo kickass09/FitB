@@ -1,6 +1,7 @@
 package com.example.fitb;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -43,6 +44,12 @@ public class UserProfileActivity extends AppCompatActivity {
         FirebaseUser currentUseruser = FirebaseAuth.getInstance().getCurrentUser();
         String currentUserId = currentUseruser.getUid();
 
+        // Retrieve the saved button state from SharedPreferences
+        boolean isRequestSent = isRequestSent(currentUserId, userId);
+
+        // Set the initial text of the button based on the retrieved state
+        updateButtonState(sendRequestButton, isRequestSent);
+
         // Set up a click listener for the Send Request button
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,10 +60,14 @@ public class UserProfileActivity extends AppCompatActivity {
                 if(sendRequestButton.getText().toString().equals("Cancel Request")){
                     sendRequestCancel(currentUserId,userId);
                     sendRequestButton.setText("Send Request");
+
                 }else{
                     sendFriendRequest(currentUserId,userId);
                     sendRequestButton.setText("Cancel Request");
                 }
+
+                // Save the updated button state in SharedPreferences
+                saveRequestState(currentUserId, userId, sendRequestButton.getText().toString());
 
             }
         });
@@ -70,14 +81,21 @@ public class UserProfileActivity extends AppCompatActivity {
                     // User's details found in the database
                     String username = dataSnapshot.child("name").getValue(String.class);
                     String gender = dataSnapshot.child("gender").getValue(String.class);
+                    String Goal=dataSnapshot.child("goal").getValue(String.class);
+                    String GymLocations=dataSnapshot.child("gymLocations").getValue(String.class);
                     // Retrieve other user details in a similar manner
 
                     // Update your UI elements with the user's details
                     TextView usernameTextView = findViewById(R.id.textViewName);
                     TextView genderTextView = findViewById(R.id.textViewGender);
+                    TextView textViewGoal = findViewById(R.id.textViewGoal);
+                    TextView textViewGymLocations = findViewById(R.id.textViewGymLocations);
 
-                    usernameTextView.setText(username);
-                    genderTextView.setText(gender);
+                    usernameTextView.setText("Name: "+username);
+                    genderTextView.setText("Gender: " +gender);
+                    textViewGoal.setText("Goal: " +Goal);
+                    textViewGymLocations.setText("Preferred gym locations: "+GymLocations);
+
                     // Update other UI elements with the respective data
                 }
             }
@@ -87,6 +105,33 @@ public class UserProfileActivity extends AppCompatActivity {
                 // Handle errors
             }
         });
+    }
+
+
+    // Method to check if a friend request has already been sent
+    private boolean isRequestSent(String currentUserId, String userId) {
+        // Retrieve the saved button state from SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("FriendRequests", MODE_PRIVATE);
+        String buttonState = preferences.getString(currentUserId + userId, "Send Request");
+        return buttonState.equals("Cancel Request");
+    }
+
+    // Method to save the button state in SharedPreferences
+    private void saveRequestState(String currentUserId, String userId, String buttonState) {
+        // Save the current button state in SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("FriendRequests", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(currentUserId + userId, buttonState);
+        editor.apply();
+    }
+
+    // Method to update the button state based on whether a request has been sent
+    private void updateButtonState(Button sendRequestButton, boolean isRequestSent) {
+        if (isRequestSent) {
+            sendRequestButton.setText("Cancel Request");
+        } else {
+            sendRequestButton.setText("Send Request");
+        }
     }
 
     private void sendRequestCancel(String currentUserId, String userId) {
