@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,8 @@ public class GymPartnersAdapter extends RecyclerView.Adapter<GymPartnersAdapter.
         // Example: holder.nameTextView.setText(user.getName());
         holder.usernameTextView.setText(user.getName());
         holder.genderTextView.setText(user.getGender());
+        Picasso.get().load(user.getProfilePicUrl()).into(holder.profilePic);
+
         //userId1=holder.userId;
         holder.bind(user);
     }
@@ -62,12 +67,14 @@ public class GymPartnersAdapter extends RecyclerView.Adapter<GymPartnersAdapter.
         TextView usernameTextView=itemView.findViewById(R.id.usernameTextView); // Define usernameTextView
         TextView genderTextView=itemView.findViewById(R.id.genderTextView);   // Define genderTextView
         String userId;
+        ImageView profilePic;
 
         public ViewHolder(View itemView) {
             super(itemView);
             // Initialize CardView elements here
             usernameTextView = itemView.findViewById(R.id.usernameTextView); // Initialize usernameTextView
             genderTextView = itemView.findViewById(R.id.genderTextView);
+            profilePic=itemView.findViewById(R.id.imageView2);
 
             // Set a click listener for the entire CardView
             itemView.setOnClickListener(new View.OnClickListener() {

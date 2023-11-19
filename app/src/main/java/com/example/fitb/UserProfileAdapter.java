@@ -20,7 +20,7 @@ public class UserProfileAdapter extends RecyclerView.Adapter<UserProfileAdapter.
     private UserProfileClickListener clickListener;
 
     public interface UserProfileClickListener {
-        void onUserProfileClick(String userId, String name);
+        void onUserProfileClick(String userId, String name,String profilePicUrl);
     }
 
     public UserProfileAdapter(Context context, List<UserProfile> userProfiles, UserProfileClickListener clickListener) {
@@ -65,7 +65,7 @@ public class UserProfileAdapter extends RecyclerView.Adapter<UserProfileAdapter.
             @Override
             public void onClick(View view) {
                 // Pass userId and name to the clickListener interface
-                clickListener.onUserProfileClick(userProfile.getUserId(), userProfile.getName());
+                clickListener.onUserProfileClick(userProfile.getUserId(), userProfile.getName(),userProfile.getProfilePicUrl());
             }
         });
 

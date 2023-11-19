@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private String messageReceiverId,messageSenderId;
     private String messageReceiverName;
+    private String profilePicUrl;
     private TextView username,userLastSeen;
     private CircleImageView userImage;
     private ImageButton sendMessageButton;
@@ -63,12 +65,14 @@ public class ChatActivity extends AppCompatActivity {
 
         messageReceiverId=getIntent().getExtras().get("userId").toString();
         messageReceiverName=getIntent().getExtras().get("name").toString();
+        profilePicUrl=getIntent().getExtras().get("profilePicUrl").toString();
 
         Toast.makeText(ChatActivity.this, messageReceiverId + messageReceiverName, Toast.LENGTH_SHORT).show();
 
         InitializeControllers();
 
         username.setText(messageReceiverName);
+        Picasso.get().load(profilePicUrl).into(userImage);
 
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,6 +85,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     String gender = dataSnapshot.child("gender").getValue(String.class);
                     String Goal=dataSnapshot.child("goal").getValue(String.class);
                     String GymLocations=dataSnapshot.child("gymLocations").getValue(String.class);
+                    String profilePicUrl=dataSnapshot.child("profilePicUrl").getValue(String.class);
                     // Retrieve other user details in a similar manner
 
                     // Update your UI elements with the user's details
@@ -90,11 +93,13 @@ public class UserProfileActivity extends AppCompatActivity {
                     TextView genderTextView = findViewById(R.id.textViewGender);
                     TextView textViewGoal = findViewById(R.id.textViewGoal);
                     TextView textViewGymLocations = findViewById(R.id.textViewGymLocations);
+                    ImageView profilePhotoUrl=findViewById(R.id.imageView);
 
                     usernameTextView.setText("Name: "+username);
                     genderTextView.setText("Gender: " +gender);
                     textViewGoal.setText("Goal: " +Goal);
                     textViewGymLocations.setText("Preferred gym locations: "+GymLocations);
+                    Picasso.get().load(profilePicUrl).into(profilePhotoUrl);
 
                     // Update other UI elements with the respective data
                 }

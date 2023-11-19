@@ -98,11 +98,12 @@ public class ChatsFragment extends Fragment implements UserProfileAdapter.UserPr
     }
 
     @Override
-    public void onUserProfileClick(String userId, String name) {
+    public void onUserProfileClick(String userId, String name,String profilePicUrl) {
         // Start the ChatActivity and pass userId and name as extras
         Intent intent = new Intent(getActivity(), ChatActivity.class); // Use 'getActivity()' to get the context
         intent.putExtra("userId", userId);
         intent.putExtra("name", name);
+        intent.putExtra("profilePicUrl", profilePicUrl);
         startActivity(intent);
     }
 

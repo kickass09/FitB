@@ -47,6 +47,7 @@ public class Profile extends AppCompatActivity {
     private ImageView profileImage;
     private Uri selectedImageUri;
     String userId;
+    String ImagePicUrl;
 
     private CircleImageView userProfileimage;
 
@@ -215,12 +216,12 @@ public class Profile extends AppCompatActivity {
                 String gender = etGender.getText().toString();
                 String goal = spinnerGoal.getSelectedItem().toString();
                 String gymLocations = etGymLocations.getText().toString();
-                String profilePicUrl=imageUri.toString();
+//                String profilePicUrl=userProfileimage.toString();
                 // Get the current user's unique ID
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String userId = user.getUid();
 
-                UserProfile userProfile = new UserProfile(userId, name, gender, goal, gymLocations, profilePicUrl);
+                UserProfile userProfile = new UserProfile(userId, name, gender, goal, gymLocations, ImagePicUrl);
 
                 //UserProfile userProfile = new UserProfile(userId,name, gender, goal, gymLocations);
                 profileRef.setValue(userProfile);
@@ -248,6 +249,7 @@ public class Profile extends AppCompatActivity {
                     userRef.child("gender").setValue(gender);
                     userRef.child("goal").setValue(goal);
                     userRef.child("gymLocations").setValue(gymLocations);
+                    userRef.child("profilePhotoUrl").setValue(ImagePicUrl);
 
                     // Show a success message
                     Toast.makeText(Profile.this, "Profile information saved.", Toast.LENGTH_SHORT).show();
@@ -346,14 +348,14 @@ public class Profile extends AppCompatActivity {
                             @Override
                             public void onSuccess(Uri uri) {
                                 // Update the user's database entry with the image URL
-                                String imageUrl = uri.toString();
+                                ImagePicUrl = uri.toString();
 
                                 // Get a reference to the user's entry in the Firebase Realtime Database
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                                 DatabaseReference userRef = databaseReference.child("users").child(userId);
 
                                 // Update the 'profilePhotoUrl' field in the database
-                                userRef.child("profilePhotoUrl").setValue(imageUrl);
+                                userRef.child("profilePhotoUrl").setValue(ImagePicUrl);
                             }
                         });
 
