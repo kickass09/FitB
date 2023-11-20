@@ -1,5 +1,7 @@
 package com.example.fitb;
 
+import android.location.Location;
+
 public class UserProfile {
     private String userId;
     public String name;
@@ -7,6 +9,15 @@ public class UserProfile {
     public String goal;
     public String gymLocations;
     public String profilePicUrl;
+    private LocationWrapper location;
+
+    public LocationWrapper getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationWrapper location) {
+        this.location = location;
+    }
 
     public UserProfile() {
         // Default constructor required for calls to DataSnapshot.getValue(UserProfile.class)
@@ -41,6 +52,7 @@ public class UserProfile {
         this.gymLocations = gymLocations;
         this.profilePicUrl = profilePicUrl;
     }
+
 
     public String getProfilePicUrl() {
         return profilePicUrl;
@@ -85,6 +97,7 @@ public class UserProfile {
     public String getGymLocations() {
         return gymLocations;
     }
+
 
     public void setGymLocations(String gymLocations) {
         this.gymLocations = gymLocations;
