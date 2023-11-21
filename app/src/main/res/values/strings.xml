@@ -30,5 +30,8 @@
     <string-array name="goal_options">
         <item>Gain Weight/Muscle</item>
         <item>Lose Weight/Fat</item>
+        <item>Toning (Look good naked)</item>
+        <item>Increase Flexibility</item>
+        <item>Improve endurance</item>
     </string-array>
 </resources>

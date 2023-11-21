@@ -1,10 +1,12 @@
 package com.example.fitb;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -32,6 +34,7 @@ public class GymPartnersActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
 
 
     private FusedLocationProviderClient fusedLocationClient;
@@ -65,6 +68,17 @@ public class GymPartnersActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
+        progressDialog = new ProgressDialog(GymPartnersActivity.this);
+        progressDialog.setMessage("Searching for users with the same goal and within 10kms");
+        progressDialog.show();
+        // Add a delay of 3 seconds before dismissing the ProgressDialog
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+                queryUsersWithSameGoalAndDistance();
+            }
+        }, 3000);
 
         if (ActivityCompat.checkSelfPermission(GymPartnersActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // Request location permission if not granted
@@ -111,7 +125,7 @@ public class GymPartnersActivity extends AppCompatActivity {
 
         // Query Firebase for users with the same goal and populate the adapter
         //queryUsersWithSameGoal();
-        queryUsersWithSameGoalAndDistance();
+//        queryUsersWithSameGoalAndDistance();
     }
 
     private void queryUsersWithSameGoalAndDistance() {

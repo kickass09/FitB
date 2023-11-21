@@ -19,6 +19,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class Register extends AppCompatActivity {
     
@@ -27,6 +30,7 @@ public class Register extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
+    private DatabaseReference RootRef;
 
     @Override
     public void onStart() {
@@ -45,6 +49,9 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mAuth=FirebaseAuth.getInstance();
+
+        RootRef= FirebaseDatabase.getInstance().getReference();
+
 
 
         editTextEmail=findViewById(R.id.email);
@@ -91,6 +98,11 @@ public class Register extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
+
+                                    String deviceToken= FirebaseInstanceId.getInstance().getToken();
+                                    String currentUserId=mAuth.getCurrentUser().getUid();
+
+                                    RootRef.child("users").child(currentUserId).child("device_token").setValue(deviceToken);
 
                                     Toast.makeText(Register.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();

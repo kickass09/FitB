@@ -18,6 +18,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.auth.User;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class Login extends AppCompatActivity {
 
@@ -26,6 +30,8 @@ public class Login extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView,txtForgotPassword;
+    private DatabaseReference UsersRef;
+
 
     @Override
     public void onStart() {
@@ -43,6 +49,8 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        UsersRef= FirebaseDatabase.getInstance().getReference().child("users");
 
 
         mAuth=FirebaseAuth.getInstance();
@@ -99,11 +107,22 @@ public class Login extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Intent intent =new Intent(getApplicationContext(),BottomNavi.class);
-                                    startActivity(intent);
-                                    finish();
+                                    String currentUserId=mAuth.getCurrentUser().getUid();
+                                    String deviceToken= FirebaseInstanceId.getInstance().getToken();
+                                    UsersRef.child(currentUserId).child("device_token").setValue(deviceToken).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                                // Sign in success, update UI with the signed-in user's information
+                                                Intent intent =new Intent(getApplicationContext(),BottomNavi.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+
+                                        }
+                                    });
+
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(Login.this, "Authentication failed.",
