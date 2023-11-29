@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ public class GymPartnersActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private ProgressDialog progressDialog;
+
+    Integer SearchDistance=10000;
 
 
     private FusedLocationProviderClient fusedLocationClient;
@@ -126,6 +129,32 @@ public class GymPartnersActivity extends AppCompatActivity {
         // Query Firebase for users with the same goal and populate the adapter
         //queryUsersWithSameGoal();
 //        queryUsersWithSameGoalAndDistance();
+
+
+    }
+
+    public void onUpdateSearchDistanceClick(View view) {
+        EditText editTextDistance = findViewById(R.id.editTextDistance);
+        String distanceStr = editTextDistance.getText().toString();
+
+        if (!distanceStr.isEmpty()) {
+            try {
+                // Parse the entered distance
+                int newDistance = Integer.parseInt(distanceStr);
+
+                // Update the SearchDistance variable
+                SearchDistance = newDistance;
+
+                // Refresh the RecyclerView with the updated distance
+                queryUsersWithSameGoalAndDistance();
+            } catch (NumberFormatException e) {
+                // Handle invalid input (non-integer value)
+                Toast.makeText(this, "Invalid distance value", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            // Handle empty input
+            Toast.makeText(this, "Please enter a distance value", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void queryUsersWithSameGoalAndDistance() {
@@ -147,8 +176,8 @@ public class GymPartnersActivity extends AppCompatActivity {
                     // Get the current user's location
 //                    double currentLatitude = dataSnapshot.child("location/latitude").getValue(Double.class);
 //                    double currentLongitude = dataSnapshot.child("location/longitude").getValue(Double.class);
-                    double currentLatitude = currentLocation.getLatitude();
-                    double currentLongitude = currentLocation.getLongitude();
+                    double currentLatitude = 37.18833;
+                    double currentLongitude = -122.093595;
                     Log.d("Location", "Current location is null9" + currentLongitude +" and "+currentLatitude);
 
 
@@ -166,6 +195,7 @@ public class GymPartnersActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.d("dataSnapshot does not exists","true");
+                            adapter.clearUsers();
                             if (dataSnapshot.exists()) {
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                     String userId = snapshot.getKey();
@@ -179,10 +209,21 @@ public class GymPartnersActivity extends AppCompatActivity {
 
                                         if (userLatitude != null && userLongitude != null) {
                                             // Calculate distance between users
+                                            Log.d("Location", "User Latitude: " + userLatitude + ", User Longitude: " + userLongitude);
+                                            Log.d("Location", "Current Latitude: " + currentLatitude + ", Current Longitude: " + currentLongitude);
+
+
+                                            float[] results = new float[1];
+                                            Location.distanceBetween(currentLatitude, currentLongitude, userLatitude, userLongitude, results);
+                                            double distance1 = results[0];
                                             double distance = calculateDistance(currentLatitude, currentLongitude, userLatitude, userLongitude);
-                                            Log.d("User within 10km", userId);
+                                            //Log.d("User within 10km", userId);
+                                            Log.d("Distance", String.valueOf(distance));
+                                            Log.d("Distance1", String.valueOf(distance1));
+                                            Log.d("SearchDistance", String.valueOf(SearchDistance));
                                             // Check if the user is within 10km
-                                            if (distance <= 10000) {
+                                            if (distance <= SearchDistance) {
+
                                                 Log.d("User within 10km", userId);
                                                 // Check if there is an accepted friend request
                                                 checkFriendRequest(currentUserId, userId, new FriendRequestCallback() {

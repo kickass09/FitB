@@ -24,6 +24,11 @@ public class GymPartnersAdapter extends RecyclerView.Adapter<GymPartnersAdapter.
         this.listener = listener;
     }
 
+    public void clearUsers() {
+        usersList.clear();
+        notifyDataSetChanged();
+    }
+
     public interface OnUserItemClickListener {
         void onUserItemClick(UserProfile userProfile);
     }

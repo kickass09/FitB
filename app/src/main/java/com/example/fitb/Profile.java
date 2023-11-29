@@ -171,7 +171,7 @@ public class Profile extends AppCompatActivity {
                         String gender = dataSnapshot.child("gender").getValue(String.class);
                         String goal = dataSnapshot.child("goal").getValue(String.class);
                         String gymLocations = dataSnapshot.child("gymLocations").getValue(String.class);
-                        String profileImage=dataSnapshot.child("profilePhotoUrl").getValue(String.class);
+                        String profileImage=dataSnapshot.child("profilePicUrl").getValue(String.class);
 
                         // Assuming you have EditText fields for name, gender, goal, and gymLocations
 //                        EditText etName = findViewById(R.id.etName);
@@ -249,7 +249,7 @@ public class Profile extends AppCompatActivity {
                     userRef.child("gender").setValue(gender);
                     userRef.child("goal").setValue(goal);
                     userRef.child("gymLocations").setValue(gymLocations);
-                    userRef.child("profilePhotoUrl").setValue(ImagePicUrl);
+                    userRef.child("profilePicUrl").setValue(ImagePicUrl);
 
                     // Show a success message
                     Toast.makeText(Profile.this, "Profile information saved.", Toast.LENGTH_SHORT).show();
@@ -355,7 +355,7 @@ public class Profile extends AppCompatActivity {
                                 DatabaseReference userRef = databaseReference.child("users").child(userId);
 
                                 // Update the 'profilePhotoUrl' field in the database
-                                userRef.child("profilePhotoUrl").setValue(ImagePicUrl);
+                                userRef.child("profilePicUrl").setValue(ImagePicUrl);
                             }
                         });
 
