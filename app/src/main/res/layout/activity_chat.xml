@@ -34,6 +34,7 @@
         <ImageButton
             android:id="@+id/send_message_btn"
             android:layout_width="60dp"
+            android:backgroundTint="@color/white"
             android:outlineAmbientShadowColor="@color/white"
             android:outlineSpotShadowColor="@color/white"
             android:layout_height="wrap_content"

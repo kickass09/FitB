@@ -173,9 +173,7 @@ public class GymPartnersActivity extends AppCompatActivity {
                     String currentUserGoal = dataSnapshot.child("goal").getValue(String.class);
                     Log.d("Location", "Goal"+currentUserGoal);
 
-                    // Get the current user's location
-//                    double currentLatitude = dataSnapshot.child("location/latitude").getValue(Double.class);
-//                    double currentLongitude = dataSnapshot.child("location/longitude").getValue(Double.class);
+
                     double currentLatitude = 37.18833;
                     double currentLongitude = -122.093595;
                     Log.d("Location", "Current location is null9" + currentLongitude +" and "+currentLatitude);
