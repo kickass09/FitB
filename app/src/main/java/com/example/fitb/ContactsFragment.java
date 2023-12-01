@@ -150,7 +150,7 @@ public class ContactsFragment extends Fragment {
 
                     // Check if friendRequests list is empty and show a "No Friend Requests" toast
                     if (friendRequests.isEmpty()) {
-                        Toast.makeText(requireContext(), "No Friend Requests", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(requireContext(), "No Friend Requests", Toast.LENGTH_SHORT).show();
                     }
                 }
 

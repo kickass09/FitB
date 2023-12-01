@@ -166,22 +166,16 @@ public class GymPartnersActivity extends AppCompatActivity {
         databaseReference.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("Location", "Current location is null9");
-                Log.d("Location", "Number of users: " + dataSnapshot.getChildrenCount());
+
                 if (dataSnapshot.exists()) {
 
                     String currentUserGoal = dataSnapshot.child("goal").getValue(String.class);
-                    Log.d("Location", "Goal"+currentUserGoal);
-
 
                     double currentLatitude = 37.18833;
                     double currentLongitude = -122.093595;
-                    Log.d("Location", "Current location is null9" + currentLongitude +" and "+currentLatitude);
-
 
                     if (currentLatitude == 0 && currentLongitude == 0) {
                         // Handle the case where the user's location is not available
-                        Log.d("Location", "User location is not available");
                         return;
                     }
 
@@ -192,13 +186,10 @@ public class GymPartnersActivity extends AppCompatActivity {
                     query.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            Log.d("dataSnapshot does not exists","true");
                             adapter.clearUsers();
                             if (dataSnapshot.exists()) {
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                     String userId = snapshot.getKey();
-                                    Log.d("Location", "User Data: " + snapshot.getValue());
-                                    Log.d("Location", "Current location is null00");
 
                                     // Check if there is an accepted friend request between the users
                                     if (!userId.equals(currentUserId)) {
@@ -207,22 +198,15 @@ public class GymPartnersActivity extends AppCompatActivity {
 
                                         if (userLatitude != null && userLongitude != null) {
                                             // Calculate distance between users
-                                            Log.d("Location", "User Latitude: " + userLatitude + ", User Longitude: " + userLongitude);
-                                            Log.d("Location", "Current Latitude: " + currentLatitude + ", Current Longitude: " + currentLongitude);
-
 
                                             float[] results = new float[1];
                                             Location.distanceBetween(currentLatitude, currentLongitude, userLatitude, userLongitude, results);
                                             double distance1 = results[0];
                                             double distance = calculateDistance(currentLatitude, currentLongitude, userLatitude, userLongitude);
-                                            //Log.d("User within 10km", userId);
-                                            Log.d("Distance", String.valueOf(distance));
-                                            Log.d("Distance1", String.valueOf(distance1));
-                                            Log.d("SearchDistance", String.valueOf(SearchDistance));
+
                                             // Check if the user is within 10km
                                             if (distance <= SearchDistance) {
 
-                                                Log.d("User within 10km", userId);
                                                 // Check if there is an accepted friend request
                                                 checkFriendRequest(currentUserId, userId, new FriendRequestCallback() {
                                                     @Override
@@ -349,6 +333,11 @@ public class GymPartnersActivity extends AppCompatActivity {
                         // Set the flag to true and break the loop
                         hasAcceptedRequest = true;
                         break;
+                    }else if (otherUserId.equals(senderId) && "rejected".equals(status)) {
+                        // There is an accepted friend request between the users
+                        // Set the flag to true and break the loop
+                        hasAcceptedRequest = true;
+                        break;
                     }
                 }
 
@@ -366,10 +355,6 @@ public class GymPartnersActivity extends AppCompatActivity {
 
     private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         // Haversine formula to calculate distance
-        // ...
-
-        // This code remains the same as previously provided
-        // ...
 
         // The radius of the Earth in meters
         double earthRadius = 6371000; // approximately 6371 km

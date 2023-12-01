@@ -67,10 +67,12 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
                 // Handle the Accept button click
                 updateRequestStatus(friendRequest.getRequestId(), "accepted");
                 // Disable the buttons after accepting
+                buttonReject.setText("block");
                 buttonAccept.setEnabled(false);
                 buttonReject.setEnabled(true);
                 // Change text to indicate accepted
                 buttonAccept.setText("Accepted");
+
             }
         });
 
@@ -84,6 +86,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
                 buttonReject.setEnabled(false);
                 // Change text to indicate rejected
                 buttonReject.setText("Rejected");
+
             }
         });
 
@@ -113,7 +116,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             buttonAccept.setEnabled(false);
             buttonReject.setEnabled(true);
             buttonAccept.setText("Accepted");
-            buttonReject.setText("Reject");
+            buttonReject.setText("Block");
         } else if ("rejected".equals(status)) {
             // If the status is rejected, disable both buttons and display "Rejected"
             buttonAccept.setVisibility(View.INVISIBLE);
