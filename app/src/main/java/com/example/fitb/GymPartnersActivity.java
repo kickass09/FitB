@@ -143,7 +143,7 @@ public class GymPartnersActivity extends AppCompatActivity {
                 int newDistance = Integer.parseInt(distanceStr);
 
                 // Update the SearchDistance variable
-                SearchDistance = newDistance;
+                SearchDistance = newDistance*1000;
 
                 // Refresh the RecyclerView with the updated distance
                 queryUsersWithSameGoalAndDistance();
@@ -171,8 +171,8 @@ public class GymPartnersActivity extends AppCompatActivity {
 
                     String currentUserGoal = dataSnapshot.child("goal").getValue(String.class);
 
-                    double currentLatitude = 37.18833;
-                    double currentLongitude = -122.093595;
+                    double currentLatitude = 49.251934;
+                    double currentLongitude = -123.049160;
 
                     if (currentLatitude == 0 && currentLongitude == 0) {
                         // Handle the case where the user's location is not available
